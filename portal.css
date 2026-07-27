@@ -1,0 +1,19 @@
+:root{color-scheme:light;--red:#7b1113;--orange:#e96718;--ink:#241e1d;--paper:#fff9f2;--line:#ead8c9}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 80% 0,#ffe1bf,transparent 32%),linear-gradient(145deg,#fffaf4,#f7eee5);font-family:Inter,Arial,sans-serif;color:var(--ink)}
+.portal{width:min(1080px,calc(100% - 32px));margin:auto;padding:56px 0}
+header{display:flex;align-items:center;gap:24px;margin-bottom:36px}
+.seal{display:grid;place-items:center;width:82px;height:82px;border-radius:22px;color:white;background:linear-gradient(145deg,var(--red),#a82b1e 65%,var(--orange));font-size:28px;font-weight:900;box-shadow:0 15px 35px #7b11132b}
+.kicker{margin:0 0 5px;color:var(--orange);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:0;color:var(--red);font-family:Georgia,serif;font-size:clamp(36px,7vw,64px);line-height:1}
+header p:last-child{margin:9px 0 0;color:#6f625c}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{display:flex;min-height:310px;flex-direction:column;padding:30px;border:1px solid var(--line);border-radius:22px;color:inherit;background:#fffdf9;text-decoration:none;box-shadow:0 16px 50px #744b2a12;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 60px #744b2a20}
+.course{background:linear-gradient(145deg,#fffdf9,#fff1dd)}
+.tag{align-self:flex-start;padding:7px 10px;border-radius:99px;color:#8a2d16;background:#ffe7cf;font-size:12px;font-weight:800}
+h2{margin:32px 0 12px;color:var(--red);font-family:Georgia,serif;font-size:32px}
+.card p{margin:0;color:#6a5e58;line-height:1.65}
+.card strong{margin-top:auto;color:var(--orange)}
+aside{margin-top:22px;padding:18px 20px;border-left:4px solid var(--orange);border-radius:8px;background:#fff8ed;color:#675b55;font-size:14px;line-height:1.55}
+@media(max-width:700px){.portal{padding:28px 0}.grid{grid-template-columns:1fr}header{align-items:flex-start}.seal{width:64px;height:64px;flex:0 0 64px;border-radius:17px}h1{font-size:38px}.card{min-height:260px}}

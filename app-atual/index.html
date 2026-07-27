@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#7b1113">
+  <title>Meus Processos — Material Permanente</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="top">
+    <a href="../">← Portal</a>
+    <div><p>Área local e segura</p><h1>Meus processos</h1></div>
+    <button id="exportBtn" type="button">Exportar backup</button>
+  </header>
+  <main>
+    <section class="privacy">
+      <b>Seus dados não são enviados ao GitHub.</b>
+      <span>Tudo o que você importar ou escrever fica somente neste navegador. Em outro computador, importe novamente o arquivo de backup.</span>
+    </section>
+    <section id="empty" class="empty">
+      <span>⇧</span>
+      <h2>Importe o backup do seu aplicativo atual</h2>
+      <p>Selecione um arquivo JSON exportado pelo aplicativo. Revise antes para não incluir dados sensíveis.</p>
+      <label class="primary">Escolher arquivo JSON<input id="fileInput" type="file" accept=".json,application/json"></label>
+    </section>
+    <section id="content" hidden>
+      <div class="toolbar">
+        <label>Pesquisar processo<input id="search" type="search" placeholder="Título, etapa ou código"></label>
+        <button id="replaceBtn" type="button">Importar outro backup</button>
+      </div>
+      <div id="summary" class="summary"></div>
+      <div id="processes" class="processes"></div>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
