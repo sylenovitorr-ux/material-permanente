@@ -1,0 +1,175 @@
+.resume-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 30px;
+  gap: 14px;
+  align-items: center;
+  margin: -10px 0 24px;
+  padding: 14px 17px;
+  border: 1px solid rgba(139, 17, 24, .16);
+  border-radius: 18px;
+  color: var(--red-900);
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 12px 34px rgba(76, 31, 22, .08);
+  text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.resume-card[hidden] {
+  display: none;
+}
+
+.resume-card:hover,
+.resume-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(139, 17, 24, .32);
+  box-shadow: 0 16px 42px rgba(76, 31, 22, .12);
+}
+
+.resume-card:focus-visible {
+  outline: 4px solid rgba(244, 122, 31, .3);
+  outline-offset: 3px;
+}
+
+.resume-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 14px;
+  color: #fff;
+  background: var(--red-800);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.resume-card small,
+.resume-card strong {
+  display: block;
+}
+
+.resume-card small {
+  margin-bottom: 3px;
+  color: var(--orange-600);
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.resume-card strong {
+  color: var(--red-950);
+  font-size: 1rem;
+}
+
+.resume-arrow {
+  font-size: 1.35rem;
+  transition: transform .2s ease;
+}
+
+.resume-card:hover .resume-arrow {
+  transform: translateX(4px);
+}
+
+.card-labels {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.last-marker {
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--red-800);
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+}
+
+.last-marker[hidden] {
+  display: none;
+}
+
+.app-card.is-last-used {
+  border-color: rgba(139, 17, 24, .3);
+  box-shadow: 0 26px 76px rgba(76, 31, 22, .17);
+}
+
+.app-card.is-opening {
+  pointer-events: none;
+}
+
+.app-card.is-opening .open-button {
+  filter: saturate(.8);
+}
+
+.app-card.is-opening .open-button::after {
+  width: 17px;
+  height: 17px;
+  margin-left: 10px;
+  border: 2px solid rgba(255, 255, 255, .42);
+  border-top-color: #fff;
+  border-radius: 50%;
+  content: "";
+  animation: portal-spin .7s linear infinite;
+}
+
+body {
+  transition: opacity .16s ease;
+}
+
+body.is-navigating {
+  opacity: .78;
+}
+
+.keyboard-tip {
+  margin: 17px 0 -4px;
+  color: var(--muted);
+  font-size: .76rem;
+  text-align: center;
+}
+
+kbd {
+  display: inline-grid;
+  min-width: 24px;
+  height: 24px;
+  margin: 0 2px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 7px;
+  color: var(--red-900);
+  background: #fff;
+  font: 800 .72rem/1 ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes portal-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 760px) {
+  .resume-card {
+    margin: -4px 0 18px;
+  }
+
+  .card-labels {
+    max-width: calc(100% - 58px);
+  }
+
+  .keyboard-tip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .resume-card,
+  .resume-arrow {
+    transition: none;
+  }
+
+  .app-card.is-opening .open-button::after {
+    animation: none;
+  }
+}
