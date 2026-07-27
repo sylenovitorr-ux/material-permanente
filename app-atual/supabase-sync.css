@@ -1,0 +1,131 @@
+.cloudSyncStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .42rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cloudSyncStatus::before {
+  content: "";
+  width: .55rem;
+  height: .55rem;
+  border-radius: 50%;
+  background: #a7f3d0;
+  box-shadow: 0 0 0 3px rgba(167,243,208,.16);
+}
+
+.cloudSyncStatus[data-state="saving"]::before {
+  background: #fde68a;
+  animation: syncPulse 1s infinite alternate;
+}
+
+.cloudSyncStatus[data-state="waiting"]::before,
+.cloudSyncStatus[data-state="local"]::before {
+  background: #cbd5e1;
+}
+
+.cloudSyncStatus[data-state="error"]::before {
+  background: #fca5a5;
+}
+
+.syncDialog {
+  width: min(92vw, 520px);
+  border: 0;
+  border-radius: 24px;
+  padding: 1.5rem;
+  color: #17383c;
+  box-shadow: 0 28px 80px rgba(0,0,0,.32);
+}
+
+.syncDialog::backdrop {
+  background: rgba(6, 25, 27, .72);
+  backdrop-filter: blur(4px);
+}
+
+.syncDialog h2 {
+  margin: .4rem 0 .65rem;
+}
+
+.syncDialog p {
+  color: #53676a;
+  line-height: 1.55;
+}
+
+.syncDialogClose {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.syncDialogClose button {
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 0;
+  border-radius: 50%;
+  background: #eef4f4;
+  color: #31575b;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.syncAuthForm {
+  display: grid;
+  gap: .9rem;
+  margin-top: 1rem;
+}
+
+.syncAuthForm label {
+  display: grid;
+  gap: .35rem;
+  font-weight: 800;
+}
+
+.syncAuthForm input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: .85rem 1rem;
+  border: 1px solid #cbdada;
+  border-radius: 12px;
+  font: inherit;
+}
+
+.syncAuthForm input:focus {
+  border-color: #d4511f;
+  outline: 3px solid rgba(212,81,31,.14);
+}
+
+.syncActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: .5rem;
+}
+
+.syncActions.vertical {
+  display: grid;
+}
+
+@keyframes syncPulse {
+  to { transform: scale(1.35); opacity: .65; }
+}
+
+@media (max-width: 700px) {
+  .cloudSyncStatus {
+    order: 5;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .syncDialog {
+    padding: 1.15rem;
+  }
+
+  .syncActions > button {
+    flex: 1 1 100%;
+  }
+}
