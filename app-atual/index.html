@@ -230,7 +230,7 @@
   <section id="backup" class="view">
     <div class="card">
       <h2>Backup e segurança</h2>
-      <p>O PWA salva os dados e screenshots no próprio navegador. Para não depender de um único aparelho, exporte um backup de tempos em tempos. O arquivo pode ficar maior quando houver muitas imagens.</p>
+      <p>O PWA mantém uma cópia no navegador. Ao conectar sua conta, processos, versões, checklists e andamento também são sincronizados. Screenshots continuam locais nesta fase de teste; mantenha o backup completo como proteção adicional.</p>
       <div class="actionRow">
         <button id="exportBackup" class="primary">Exportar backup completo</button>
         <label class="secondary fileButton">Importar backup<input id="importBackup" type="file" accept="application/json,.json" hidden /></label>
@@ -240,7 +240,7 @@
     </div>
     <div class="card">
       <h2>Sobre o salvamento</h2>
-      <p>As versões ficam no <strong>IndexedDB</strong>, um banco interno do navegador. O aplicativo continua funcionando sem internet depois de instalado.</p>
+      <p>A cópia offline fica no <strong>IndexedDB</strong>. Com uma conta conectada, as alterações são enviadas ao Supabase quando houver internet e carregadas nos outros aparelhos.</p>
       <div class="storageMeter">
         <div><strong id="storageUsed">Calculando...</strong><span id="storageDetail">Uso do armazenamento deste aparelho</span></div>
         <div class="progressTrack"><span id="storageBar"></span></div>
