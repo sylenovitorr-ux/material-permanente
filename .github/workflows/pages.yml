@@ -23,8 +23,10 @@ jobs:
     steps:
       - name: Baixar arquivos
         uses: actions/checkout@v4
-      - name: Configurar Pages
+      - name: Habilitar e configurar Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Preparar site
         uses: actions/upload-pages-artifact@v3
         with:
