@@ -1,5 +1,5 @@
-const CACHE = "material-permanente-github-integral-v2";
-const ASSETS = ["./", "./app.js", "./dados.json", "./styles.css", "./manifest.webmanifest", "./favicon.svg", "./icons/icon.svg"];
+const CACHE = "material-permanente-supabase-v1";
+const ASSETS = ["./", "./app.js", "./supabase-sync.js", "./supabase-sync.css", "./dados.json", "./styles.css", "./manifest.webmanifest", "./favicon.svg", "./icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
