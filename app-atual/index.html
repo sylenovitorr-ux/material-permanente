@@ -1,39 +1,255 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="theme-color" content="#7b1113">
-  <title>Meus Processos — Material Permanente</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <header class="top">
-    <a href="../">← Portal</a>
-    <div><p>Área local e segura</p><h1>Meus processos</h1></div>
-    <button id="exportBtn" type="button">Exportar backup</button>
-  </header>
-  <main>
-    <section class="privacy">
-      <b>Seus dados não são enviados ao GitHub.</b>
-      <span>Tudo o que você importar ou escrever fica somente neste navegador. Em outro computador, importe novamente o arquivo de backup.</span>
-    </section>
-    <section id="empty" class="empty">
-      <span>⇧</span>
-      <h2>Importe o backup do seu aplicativo atual</h2>
-      <p>Selecione um arquivo JSON exportado pelo aplicativo. Revise antes para não incluir dados sensíveis.</p>
-      <label class="primary">Escolher arquivo JSON<input id="fileInput" type="file" accept=".json,application/json"></label>
-    </section>
-    <section id="content" hidden>
-      <div class="toolbar">
-        <label>Pesquisar processo<input id="search" type="search" placeholder="Título, etapa ou código"></label>
-        <button id="replaceBtn" type="button">Importar outro backup</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta name="theme-color" content="#174f55" />
+    <meta name="description" content="Central operacional para processos de Material Permanente no SISCOFIS e SIAFI." />
+    <title>Fisc Adm • Material Permanente</title>
+    <link rel="icon" href="./favicon.svg" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="portalBack" href="../">← Escolher outro aplicativo</a>
+<header class="topbar">
+  <div>
+    <h1>Fisc Adm • Material Permanente</h1>
+    <p>Central de consulta SISCOFIS, SIAFI e gestão patrimonial</p>
+  </div>
+  <div class="topbarActions">
+    <span id="saveIndicator" class="saveIndicator">Dados salvos</span>
+    <span id="versionBadge" class="versionBadge">V63</span>
+    <button id="installBtn" class="ghost" hidden>Instalar app</button>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Navegação principal">
+  <button class="tab active" data-view="inicio">Início</button>
+  <button class="tab" data-view="andamento">Em andamento</button>
+  <button class="tab" data-view="duvidas">Tirar dúvida</button>
+  <button class="tab" data-view="processos">Processos</button>
+  <button class="tab" data-view="mapa">Mapa mental</button>
+  <button class="tab" data-view="editor">Editor</button>
+  <button class="tab" data-view="historico">Histórico</button>
+  <button class="tab" data-view="backup">Backup</button>
+  <button class="tab" data-view="referencias">Referências</button>
+</nav>
+
+<main>
+  <section id="inicio" class="view active">
+    <div class="hero card">
+      <div>
+        <span class="pill">ASSISTENTE OPERACIONAL</span>
+        <h2>Encontre o que fazer, onde fazer e o que conferir</h2>
+        <p>Pesquise uma dúvida em linguagem comum e consulte seus processos de Material Permanente no SISCOFIS e no SIAFI.</p>
       </div>
-      <div id="summary" class="summary"></div>
-      <div id="processes" class="processes"></div>
-    </section>
-  </main>
-  <script src="./app.js"></script>
-</body>
+      <div class="heroIcon" aria-hidden="true">🗂️</div>
+    </div>
+    <div class="stats">
+      <article class="card"><strong id="statProcesses">0</strong><span>processos</span></article>
+      <article class="card"><strong id="statVersions">0</strong><span>versões</span></article>
+      <article class="card"><strong id="statEdited">0</strong><span>editados</span></article>
+    </div>
+    <div class="card">
+      <h2>O que você precisa agora?</h2>
+      <div class="quickActions">
+        <button class="primary" data-jump="andamento">Continuar execução</button>
+        <button class="primary" data-jump="duvidas">Tirar uma dúvida</button>
+        <button class="secondary" data-jump="processos">Consultar processos</button>
+        <button class="secondary" data-jump="mapa">Ver mapa mental</button>
+        <a class="secondary buttonLink" href="../caderno-2025/" target="_blank" rel="noreferrer">Abrir versão didática 2025</a>
+      </div>
+    </div>
+    <div id="homeRunning" class="homeRunning"></div>
+    <div class="card sourceSummary">
+      <div>
+        <span class="eyebrow">ORGANIZAÇÃO DA BASE</span>
+        <h2>Norma, referência e rotina local separadas</h2>
+        <p>O RAE orienta os princípios da administração do Exército. O PDF oficial apoia a gestão patrimonial. Seus passos internos continuam identificados como rotina da seção.</p>
+      </div>
+      <button class="secondary" data-jump="referencias">Ver referências</button>
+    </div>
+  </section>
+
+  <section id="andamento" class="view">
+    <div class="executionHero card">
+      <div>
+        <span class="eyebrow">MODO EXECUÇÃO</span>
+        <h2>Processos em andamento</h2>
+        <p>Continue da última etapa, registre responsável, observações, pendências e evidências.</p>
+      </div>
+      <button id="startRunFromDashboard" class="primary" type="button">Iniciar novo processo</button>
+    </div>
+    <div id="runningDashboard" class="runningDashboard"></div>
+    <article id="executionWorkspace" class="executionWorkspace card" hidden></article>
+  </section>
+
+  <section id="duvidas" class="view">
+    <div class="card doubtHero">
+      <span class="eyebrow">CONSULTA RÁPIDA</span>
+      <h2>Qual é a sua dúvida?</h2>
+      <p>Exemplos: “como verificar NF liquidada?”, “qual conta usar na descarga?” ou “o que conferir no fechamento do mês?”.</p>
+      <form id="questionForm" class="questionForm">
+        <input id="questionInput" type="search" autocomplete="off" placeholder="Digite sua dúvida sobre SISCOFIS, SIAFI ou material permanente..." aria-label="Digite sua dúvida" />
+        <button class="primary" type="submit">Pesquisar resposta</button>
+      </form>
+      <div class="suggestions" aria-label="Perguntas sugeridas">
+        <button type="button" class="suggestion" data-question="Como verificar uma nota fiscal liquidada?">NF liquidada</button>
+        <button type="button" class="suggestion" data-question="Como apropriar uma guia com saldo em trânsito?">Saldo em trânsito</button>
+        <button type="button" class="suggestion" data-question="O que fazer no fechamento do mês?">Fechamento mensal</button>
+        <button type="button" class="suggestion" data-question="Como conferir depreciação no SIAFI?">Depreciação</button>
+      </div>
+    </div>
+    <div id="answerArea" class="answerArea" aria-live="polite">
+      <article class="card emptyAnswer">
+        <strong>Faça uma pergunta acima.</strong>
+        <span>A resposta será montada somente com os processos cadastrados no seu app.</span>
+      </article>
+    </div>
+    <div class="warning operationalWarning"><strong>Antes de executar:</strong> confirme a documentação, a UG, a conta e a orientação vigente da sua OM. O app é apoio à consulta e não substitui norma ou ordem da autoridade competente.</div>
+  </section>
+
+  <section id="processos" class="view">
+    <div class="card filters">
+      <input id="searchInput" type="search" placeholder="Buscar conta, comando, processo ou passo..." aria-label="Buscar processos" />
+      <select id="categoryFilter" aria-label="Filtrar por categoria"><option value="">Todas as categorias</option></select>
+    </div>
+    <div class="organizeBar card">
+      <div>
+        <strong>Organização dos blocos</strong>
+        <span>No computador: clique em “Organizar blocos”, arraste somente pela alça ⠿ ou use as setas. Para unir, clique em “Selecionar” em 2 ou mais blocos e depois em “Criar bloco único”.</span>
+      </div>
+      <div class="organizeActions">
+        <button id="organizeToggle" class="secondary" type="button">Organizar blocos</button>
+        <span id="selectedCount" class="selectedCount" hidden>0 selecionados</span>
+        <button id="groupSelected" class="primary" type="button" hidden disabled>Criar bloco único</button>
+        <button id="clearProcessSelection" class="secondary" type="button" hidden>Limpar seleção</button>
+      </div>
+    </div>
+    <div id="processGrid" class="processGrid"></div>
+    <article id="processDetail" class="card detail" hidden></article>
+  </section>
+
+  <section id="mapa" class="view">
+    <div class="mapIntro card">
+      <div>
+        <span class="eyebrow">FLUXO COMPLETO</span>
+        <h2>Fluxograma: da entrada ao fechamento do mês</h2>
+        <p>Siga as setas e as decisões. Toque em uma caixa do fluxograma para consultar os processos daquela etapa.</p>
+      </div>
+      <span class="raeTag">Estrutura orientada pelo RAE</span>
+    </div>
+    <div class="mindMap" id="mindMap"></div>
+    <div id="mapDetail" class="card mapDetail" aria-live="polite"></div>
+  </section>
+
+  <section id="editor" class="view">
+    <div class="card">
+      <div class="editorTop">
+        <select id="editorSelect" aria-label="Processo para editar"></select>
+        <input id="versionName" placeholder="Nome da nova versão, ex.: V58 Fechamento revisado" aria-label="Nome da nova versão" />
+      </div>
+      <div class="actionRow">
+        <button id="newProcess" class="secondary">Novo processo</button>
+        <button id="duplicateProcess" class="secondary">Duplicar</button>
+        <button id="deleteProcess" class="danger">Excluir nesta edição</button>
+      </div>
+      <p class="hint">As mudanças só viram uma versão definitiva quando você tocar em <strong>Salvar nova versão</strong>.</p>
+    </div>
+
+    <form id="editorForm" class="card editorGrid">
+      <label>Título<input id="edTitle" required /></label>
+      <label>Categoria<input id="edCategory" /></label>
+      <label>Ícone<input id="edIcon" maxlength="8" /></label>
+      <label>Status<input id="edStatus" /></label>
+      <label class="full">Origem<input id="edOrigin" /></label>
+      <label class="full">Objetivo<textarea id="edGoal"></textarea></label>
+      <label class="full">Aviso importante<textarea id="edWarning"></textarea></label>
+      <div class="full visualEditorHeader">
+        <div><strong>Editor visual das etapas</strong><span>No computador, arraste pela alça ⠿. Você também pode usar os botões Subir, Descer, Duplicar, Dividir, Unir abaixo e Excluir.</span></div>
+        <button id="addVisualStep" class="secondary" type="button">+ Adicionar etapa</button>
+      </div>
+      <div class="full desktopEditorHelp"><strong>Como usar:</strong> “Unir abaixo” junta a etapa atual com a próxima. “Dividir” transforma uma etapa em duas. As mudanças só são gravadas após “Salvar nova versão”.</div>
+      <div id="visualStepEditor" class="full visualStepEditor"></div>
+      <label class="full rawStepsField">Passos em texto<textarea id="edSteps" class="large"></textarea></label>
+      <label class="full">Observações, uma por linha<textarea id="edDetails"></textarea></label>
+      <label class="full">Caminhos, um por linha<textarea id="edPaths"></textarea></label>
+      <label class="full">Contas e referências, uma por linha<textarea id="edAccounts"></textarea></label>
+      <label class="full">Modelo ou texto para copiar<textarea id="edCopy"></textarea></label>
+      <div class="full actionRow stickySave">
+        <button type="submit" class="primary">Salvar nova versão</button>
+        <button type="button" id="discardChanges" class="secondary">Descartar alterações</button>
+      </div>
+      <div id="editorStatus" class="full status"></div>
+    </form>
+  </section>
+
+  <section id="historico" class="view">
+    <div class="card">
+      <h2>Histórico de versões</h2>
+      <p class="hint">Restaurar uma versão não apaga as outras. Ela volta a ser a versão ativa.</p>
+      <div id="historyList" class="historyList"></div>
+    </div>
+  </section>
+
+  <section id="referencias" class="view">
+    <div class="card">
+      <span class="eyebrow">FONTES E LIMITES</span>
+      <h2>Referências usadas para organizar o app</h2>
+      <div class="referenceGrid">
+        <article class="referenceCard official">
+          <span class="sourceType">NORMA OFICIAL</span>
+          <h3>RAE — Regulamento de Administração do Exército</h3>
+          <p>Portaria – C Ex nº 1.555, de 9 de julho de 2021. Referência para princípios, responsabilidades e controle administrativo.</p>
+          <a href="https://www.sgex.eb.mil.br/sg8/001_estatuto_regulamentos_regimentos/02_regulamentos/port_n_1555_cmdo_eb_09jul2021.html" target="_blank" rel="noreferrer">Abrir publicação do Exército</a>
+        </article>
+        <article class="referenceCard guidance">
+          <span class="sourceType">ORIENTAÇÃO PATRIMONIAL</span>
+          <h3>Caderno de Gestão Patrimonial</h3>
+          <p>Material oficial incorporado ao app para consulta e comparação com as rotinas da seção.</p>
+          <a href="../caderno-2025/" target="_blank" rel="noreferrer">Abrir versão didática 2025</a>
+        </article>
+        <article class="referenceCard local">
+          <span class="sourceType">ROTINA INTERNA</span>
+          <h3>Seus processos operacionais</h3>
+          <p>Passos, caminhos, contas, modelos e observações cadastrados por você. Devem ser revisados quando houver mudança de orientação.</p>
+          <button class="secondary" data-jump="processos">Consultar processos</button>
+        </article>
+      </div>
+      <div class="sourceLegend">
+        <span><i class="legendDot officialDot"></i> Norma oficial</span>
+        <span><i class="legendDot guidanceDot"></i> Referência oficial</span>
+        <span><i class="legendDot localDot"></i> Rotina interna</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="backup" class="view">
+    <div class="card">
+      <h2>Backup e segurança</h2>
+      <p>O PWA salva os dados e screenshots no próprio navegador. Para não depender de um único aparelho, exporte um backup de tempos em tempos. O arquivo pode ficar maior quando houver muitas imagens.</p>
+      <div class="actionRow">
+        <button id="exportBackup" class="primary">Exportar backup completo</button>
+        <label class="secondary fileButton">Importar backup<input id="importBackup" type="file" accept="application/json,.json" hidden /></label>
+        <button id="resetBase" class="danger">Restaurar base original</button>
+      </div>
+      <div id="backupStatus" class="status"></div>
+    </div>
+    <div class="card">
+      <h2>Sobre o salvamento</h2>
+      <p>As versões ficam no <strong>IndexedDB</strong>, um banco interno do navegador. O aplicativo continua funcionando sem internet depois de instalado.</p>
+      <div class="storageMeter">
+        <div><strong id="storageUsed">Calculando...</strong><span id="storageDetail">Uso do armazenamento deste aparelho</span></div>
+        <div class="progressTrack"><span id="storageBar"></span></div>
+      </div>
+      <button id="refreshStorage" class="secondary" type="button">Atualizar medidor</button>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
 </html>
