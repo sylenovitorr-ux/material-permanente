@@ -34,3 +34,5 @@ jobs:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
+
+# Reimplantação acionada após ativação manual do GitHub Pages.
