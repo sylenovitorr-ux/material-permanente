@@ -1,0 +1,15 @@
+{
+  "name": "Fisc Adm - Material Permanente",
+  "short_name": "Fisc Adm",
+  "description": "Central de consulta de processos SISCOFIS, SIAFI e gestão patrimonial, com mapa mental e funcionamento offline.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef4f3",
+  "theme_color": "#174f55",
+  "lang": "pt-BR",
+  "icons": [
+    {"src":"./icons/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
