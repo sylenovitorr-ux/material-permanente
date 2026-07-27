@@ -7,7 +7,8 @@
     <meta name="theme-color" content="#8b1118" />
     <title>Central de Material Permanente</title>
     <link rel="icon" href="./app-atual/favicon.svg" />
-    <link rel="stylesheet" href="./portal.css?v=20260727-ux2" />
+    <link rel="stylesheet" href="./portal.css?v=20260727-js1" />
+    <script src="./portal.js?v=20260727-js1" defer></script>
   </head>
   <body>
     <main class="portal">
@@ -25,15 +26,27 @@
         </div>
       </header>
 
+      <a class="resume-card" data-resume hidden>
+        <span class="resume-icon" aria-hidden="true">↻</span>
+        <span>
+          <small>CONTINUAR DE ONDE PAROU</small>
+          <strong data-resume-name></strong>
+        </span>
+        <span class="resume-arrow" aria-hidden="true">→</span>
+      </a>
+
       <section class="app-grid" aria-label="Aplicativos disponíveis">
-        <a class="app-card operational" href="./app-atual/">
+        <a class="app-card operational" href="./app-atual/" data-app="processos">
           <div class="card-top">
             <span class="icon-box" aria-hidden="true">
               <svg viewBox="0 0 24 24">
                 <path d="M9 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4M9 15l10-10M14 5h5v5"/>
               </svg>
             </span>
-            <span class="badge">USO OPERACIONAL</span>
+            <span class="card-labels">
+              <span class="last-marker" data-last-marker hidden>ÚLTIMO ACESSO</span>
+              <span class="badge">USO OPERACIONAL</span>
+            </span>
           </div>
 
           <div class="card-content">
@@ -48,10 +61,10 @@
             </ul>
           </div>
 
-          <span class="open-button">Abrir meus processos <span aria-hidden="true">→</span></span>
+          <span class="open-button"><span data-open-label>Abrir meus processos</span><span aria-hidden="true">→</span></span>
         </a>
 
-        <a class="app-card learning" href="./caderno-2025/">
+        <a class="app-card learning" href="./caderno-2025/" data-app="caderno">
           <div class="card-top">
             <span class="icon-box" aria-hidden="true">
               <svg viewBox="0 0 24 24">
@@ -59,7 +72,10 @@
                 <path d="M8 7h8M8 11h8"/>
               </svg>
             </span>
-            <span class="badge">APRENDER E CONSULTAR</span>
+            <span class="card-labels">
+              <span class="last-marker" data-last-marker hidden>ÚLTIMO ACESSO</span>
+              <span class="badge">APRENDER E CONSULTAR</span>
+            </span>
           </div>
 
           <div class="card-content">
@@ -74,9 +90,11 @@
             </ul>
           </div>
 
-          <span class="open-button">Abrir versão didática <span aria-hidden="true">→</span></span>
+          <span class="open-button"><span data-open-label>Abrir versão didática</span><span aria-hidden="true">→</span></span>
         </a>
       </section>
+
+      <p class="keyboard-tip">No computador, pressione <kbd>1</kbd> ou <kbd>2</kbd> para selecionar uma opção.</p>
 
       <footer class="privacy-note">
         <svg viewBox="0 0 24 24" aria-hidden="true">
