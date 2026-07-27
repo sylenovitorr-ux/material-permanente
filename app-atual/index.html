@@ -11,9 +11,23 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./supabase-sync.css" />
+    <link rel="stylesheet" href="../shared-nav.css?v=20260727-suite1" />
   </head>
   <body>
-    <a class="portalBack" href="../">← Escolher outro aplicativo</a>
+    <nav class="suiteDock" aria-label="Navegação entre aplicativos">
+  <a class="suiteDock__app" href="../app-atual/" data-suite-app="processos">
+    <span aria-hidden="true">🗂️</span>
+    <span>Meus processos</span>
+  </a>
+  <a class="suiteDock__menu" href="../" data-suite-menu>
+    <span aria-hidden="true">⌂</span>
+    <span>Voltar ao menu</span>
+  </a>
+  <a class="suiteDock__app" href="../caderno-2025/" data-suite-app="caderno">
+    <span aria-hidden="true">📘</span>
+    <span>Caderno 2025</span>
+  </a>
+</nav>
 <header class="topbar">
   <div>
     <h1>Fisc Adm • Material Permanente</h1>
@@ -253,5 +267,6 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="./app.js"></script>
     <script src="./supabase-sync.js"></script>
+    <script src="../shared-nav.js?v=20260727-suite1"></script>
   </body>
 </html>
